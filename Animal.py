@@ -1,21 +1,51 @@
-from z3 import Int, Solver, Or, sat, Distinct
+from z3 import Int
 
 
 stats = {
-        "cat" : {
+        "Cat" : {
             "eating": "carnivores",
             "property": None,
             "weight": 1 
         },
-        "elephant": {
+        "Elephant": {
             "eating": "herbivores",
             "property": None,
             "weight": 3 
         },
-        "sparrow": {
+        "Sparrow": {
             "eating": "herbivore",
             "property": None,
             "weight": 1
+        },
+        "Foxes": {
+            "eating": "omnivores",
+            "property": None,
+            "weight": 1
+        },
+        "Dodos": {
+            "eating": "omnivores",
+            "property": "shy",
+            "weight": 1
+        },
+        "Horses": {
+            "eating": "herbivores",
+            "property": None,
+            "weight": 2
+        },
+        "Turtles": {
+            "eating": "omnivores",
+            "property": "slow",
+            "weight": 2
+        },
+        "Lions": {
+            "eating": "carnivores",
+            "property": None,
+            "weight": 2
+        },
+        "Supply": {
+            "eating": "",
+            "property": None,
+            "weight": 2
         }
     }
 
@@ -31,4 +61,5 @@ class Animal:
 
         self.position = Int(f"{name}_position")
         self.tilt = Int(f"{name}_tilt")
+        self.compartment = Int(f"{name}_compartment")
 
