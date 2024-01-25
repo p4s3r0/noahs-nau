@@ -1,0 +1,13 @@
+# Expected: UNSAT
+
+! nau_size 6
+
+# Name, Family
+! animals
+Lion_1 Lion
+Lion_2 Lion
+Lion_3 Lion
+Lion_4 Lion
+Lion_5 Lion
+Lion_6 Lion
+Lion_7 Lion

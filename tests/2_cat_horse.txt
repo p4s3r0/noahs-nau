@@ -1,0 +1,11 @@
+# Expected: SAT
+! nau_size 6
+
+# Name, Family
+! animals
+C1 Cat
+C2 Cat
+C3 Cat
+C4 Cat
+C5 Cat
+H1 Horse

@@ -1,0 +1,12 @@
+# Expected: SAT
+! nau_size 6
+
+# Name, Family
+! animals
+S1 Sparrow
+S2 Sparrow
+S3 Sparrow
+
+
+! supplies
+SL1

@@ -1,11 +1,17 @@
-import Animal as Animal
+import sys
 import z3
-import Parser
 
-NAU_SIZE = 12
+import Animal as Animal
+import Parser
+import Const
+
 def main():
     #TODO: Input file as command line argument
-    animals = Parser.parseFile("inp.txt")
+    if len(sys.argv) != 2:
+        print(f"Usage: python3 main.py <INPUT_FILE>")
+        exit()
+
+    animals, NAU_SIZE = Parser.parseFile(sys.argv[1])
 
     s = z3.Solver()
 
@@ -16,7 +22,12 @@ def main():
     # compartments are defined through to the position. position 1,2,3 are compartment 1. 
     # position 4,5,6 are compartment 2....
     for animal in animals:
-        s.add(animals[animal].compartment == animals[animal].position / 3 + 1)
+        for pos in range(1, NAU_SIZE+1, 1):
+            # weird mapping
+            if pos % 3 == 0:
+                s.add(z3.Implies(animals[animal].position == pos, animals[animal].compartment == pos // 3))
+            else:
+                s.add(z3.Implies(animals[animal].position == pos, animals[animal].compartment == pos // 3 + 1))
 
     # if animal on the left side -> tilt boat to left (subtract weight of total weight)
     # if animal on the right side -> tilt boat to right (add weight to total weight)
@@ -33,14 +44,21 @@ def main():
 
     # 2. Carnivores or omnivores can only be with other herbivores if the herbivore is larger (has more weight) than the 
     # carnivore (e.g., a cat can be together with horses, but not sparrows, and lions can be together with other lions and elephants).
-    #TODO
+    for carnivor_or_omnivore in animals:
+        if animals[carnivor_or_omnivore].eating != Const.CARNIVORES and animals[carnivor_or_omnivore].eating != Const.OMNIVORES: continue
+        for herbivore in animals:
+            if animals[herbivore].eating != Const.HERBIVORES: continue
+            if animals[herbivore].weight <= animals[carnivor_or_omnivore].weight:
+                s.add(z3.Distinct(animals[carnivor_or_omnivore].compartment, animals[herbivore].compartment))
+
+
 
     # 3. Supplies cannot be together with herbivores or omnivores.
     for supply in animals:
         if animals[supply].family != "Supply": continue
         for animal in animals:
             if animals[supply].name == animals[animal].name: continue
-            if animals[animal].eating == "herbivores" or animals[animal].eating == "omnivores":
+            if animals[animal].eating == Const.HERBIVORES or animals[animal].eating == Const.OMNIVORES:
                 s.add(z3.Distinct(animals[supply].compartment, animals[animal].compartment))
 
 

@@ -1,0 +1,11 @@
+# Expected: SAT
+! nau_size 6
+
+# Name, Family
+! animals
+L1 Lion
+L2 Lion
+L3 Lion
+L4 Lion
+L5 Lion
+E1 Elephant

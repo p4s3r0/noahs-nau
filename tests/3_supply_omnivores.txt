@@ -1,0 +1,14 @@
+# Expected: UNSAT
+! nau_size 6
+
+# Name, Family
+! animals
+S1 Sparrow
+S2 Sparrow
+S3 Sparrow
+S4 Sparrow
+S5 Sparrow
+
+
+! supplies
+SL1

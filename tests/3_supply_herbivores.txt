@@ -1,0 +1,14 @@
+# Expected: UNSAT
+! nau_size 6
+
+# Name, Family
+! animals
+H1 Horse
+H2 Horse
+H3 Horse
+H4 Horse
+H5 Horse
+
+
+! supplies
+SL1

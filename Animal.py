@@ -1,44 +1,44 @@
 from z3 import Int
-
+import Const
 
 stats = {
         "Cat" : {
-            "eating": "carnivores",
+            "eating": Const.CARNIVORES,
             "property": None,
             "weight": 1 
         },
         "Elephant": {
-            "eating": "herbivores",
+            "eating": Const.HERBIVORES,
             "property": None,
             "weight": 3 
         },
         "Sparrow": {
-            "eating": "herbivore",
+            "eating": Const.HERBIVORES,
             "property": None,
             "weight": 1
         },
-        "Foxes": {
-            "eating": "omnivores",
+        "Fox": {
+            "eating": Const.OMNIVORES,
             "property": None,
             "weight": 1
         },
-        "Dodos": {
-            "eating": "omnivores",
-            "property": "shy",
+        "Dodo": {
+            "eating": Const.OMNIVORES,
+            "property": Const.SHY,
             "weight": 1
         },
-        "Horses": {
-            "eating": "herbivores",
+        "Horse": {
+            "eating": Const.HERBIVORES,
             "property": None,
             "weight": 2
         },
-        "Turtles": {
-            "eating": "omnivores",
-            "property": "slow",
+        "Turtle": {
+            "eating": Const.OMNIVORES,
+            "property": Const.SLOW,
             "weight": 2
         },
-        "Lions": {
-            "eating": "carnivores",
+        "Lion": {
+            "eating": Const.CARNIVORES,
             "property": None,
             "weight": 2
         },
