@@ -6,10 +6,56 @@ import Const
 import Solver
 import itertools
 
-def print_model(m, curr_animals):
+def print_model(m, curr_animals, NAU_SIZE, score):
+    print("\n\nRESULT FOR BEST CONFIGURATION\n")
+    print(f"Tilt : {sum(int(str(m[curr_animals[animal].tilt])) for animal in curr_animals)}")
+    print(f"Score: {score}")
+
+    print("\nModel in text format:")
+    print("#"*40)
+    print('[]')
     for animal in curr_animals:
-        print(f"[{str(m[curr_animals[animal].compartment]):<2}|{str(m[curr_animals[animal].position]):<2}] {curr_animals[animal].name:<10} | weight: {curr_animals[animal].weight}")
-    print(f"nau tilt: {sum(int(str(m[curr_animals[animal].tilt])) for animal in curr_animals)}")
+        print(f"[{str(m[curr_animals[animal].compartment]):>2}|{str(m[curr_animals[animal].position]):>2}] {curr_animals[animal].name:<10} | weight: {curr_animals[animal].weight}")
+    print("#"*40 + "\n")
+    print("Model in Visual ASCII format:")
+
+    arch = dict()
+
+    for i in range(1, NAU_SIZE + 1, 1):
+        arch[str(i)] = ""
+
+    for animal in curr_animals:
+        arch[str(m[curr_animals[animal].position])] = curr_animals[animal].name
+
+    ARCH_LENGTH = 35
+    print(' ' + '-' * ARCH_LENGTH)
+
+    curr_top_left = NAU_SIZE // 2
+    curr_top_right = NAU_SIZE
+
+
+    for i in range(3):
+        print(f"| [{curr_top_left - i:<2}] {arch[str(curr_top_left - i)]:<10} | ",end="")
+        print(  f"[{curr_top_right - i:<2}] {arch[str(curr_top_right - i)]:<10} |")
+    
+    curr_top_left -= 3 
+    curr_top_right -= 3 
+    while curr_top_left >= 3:
+        print('|' + '_'*(ARCH_LENGTH//2) + '|' + '_'*(ARCH_LENGTH//2) + '|')
+        for i in range(3):
+            print(f"| [{curr_top_left - i:<2}] {arch[str(curr_top_left - i)]:<10} | ", end="")
+            print(  f"[{curr_top_right - i:<2}] {arch[str(curr_top_right - i)]:<10} |")
+
+        curr_top_left -= 3 
+        curr_top_right -= 3 
+
+
+    print('|' + '_'*(ARCH_LENGTH//2) + '|' + '_'*(ARCH_LENGTH//2) + '|')
+    print(" **                               **")
+    print("   **********           **********  ")
+    print("             ***********            ")
+    print("                  *                 ")
+    print("#"*40)
 
 
 
@@ -29,6 +75,7 @@ def calcScore(combination, init_animals):
         "Lion": 0,
     }
     for animal in combination:
+        if init_animals[animal].family == "Supply": continue
         species[combination[animal].family] = species[combination[animal].family] + 1
     for spec in species:
         if species[spec] >= 2: 
@@ -47,6 +94,7 @@ def calcScore(combination, init_animals):
         "Lion": 0,
     }
     for animal in init_animals:
+        if init_animals[animal].family == "Supply": continue
         species_init[init_animals[animal].family] = species_init[init_animals[animal].family] + 1
 
     for spec in species:
@@ -91,7 +139,7 @@ def main():
     listed_animals = [init_animals[animal].name for animal in init_animals]
     animals_combinations = list()
     for i in range(1, len(listed_animals)+1):
-        animals_combinations.append(list(itertools.combinations(listed_animals, i)))
+       animals_combinations.append(list(itertools.combinations(listed_animals, i)))
 
     # iterate over combinations
     best_score = 0
@@ -119,8 +167,10 @@ def main():
                 best_model = m
                 best_animals = curr_animals
         
-    print("best score:", best_score)
-    print_model(m=best_model, curr_animals=best_animals)
+    print_model(m=best_model, curr_animals=best_animals, NAU_SIZE=NAU_SIZE, score=best_score)
+
+
+
             
             
     

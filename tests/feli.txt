@@ -1,0 +1,11 @@
+! nau_size 12
+
+! animals
+Jonas Lion
+Kathrin Horse
+Katya Elephant
+Michi Turtle
+Felix Sparrow
+
+! supplies
+Suppi
