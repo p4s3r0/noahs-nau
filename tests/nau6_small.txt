@@ -1,0 +1,4 @@
+! nau_size 6
+
+! animals
+C1 Cat

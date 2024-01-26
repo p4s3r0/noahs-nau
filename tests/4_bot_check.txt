@@ -1,0 +1,18 @@
+# Expected: UNSAT
+! nau_size 12
+
+# Name, Family
+! animals
+D1 Dodo
+C1 Cat
+C2 Cat
+C3 Cat
+C4 Cat
+C5 Cat
+C6 Cat
+C7 Cat
+C8 Cat
+C9 Cat
+
+# add following line in main for this test:
+# s.add(animals["D1"].position == 2)

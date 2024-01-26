@@ -38,6 +38,10 @@ def parseFile(file):
         print("nau size was not defined")
         exit()
 
+    
+
+    
+
     return animals, nau_size
 
 

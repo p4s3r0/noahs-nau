@@ -1,0 +1,8 @@
+! nau_size 6
+
+! animals
+C1 Cat
+C2 Cat
+C3 Cat
+C4 Cat
+L1 Lion
