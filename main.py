@@ -23,7 +23,6 @@ def print_model(m, curr_animals, NAU_SIZE, score):
 
     for i in range(1, NAU_SIZE + 1, 1):
         arch[str(i)] = ""
-
     for animal in curr_animals:
         arch[str(m[curr_animals[animal].position])] = curr_animals[animal].name
 
@@ -48,7 +47,6 @@ def print_model(m, curr_animals, NAU_SIZE, score):
 
         curr_top_left -= 3 
         curr_top_right -= 3 
-
 
     print('|' + '_'*(ARCH_LENGTH//2) + '|' + '_'*(ARCH_LENGTH//2) + '|')
     print(" **                               **")
@@ -78,7 +76,7 @@ def calcScore(combination, init_animals):
         if init_animals[animal].family == "Supply": continue
         species[combination[animal].family] = species[combination[animal].family] + 1
     for spec in species:
-        if species[spec] >= 2: 
+        if species[spec] == 2: 
             score += 5
 
     # one of each species
@@ -127,9 +125,14 @@ def calcScore(combination, init_animals):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(f"Usage: python3 main.py <INPUT_FILE>")
+    if len(sys.argv) != 2 and len(sys.argv) != 3:
+        print(f"Usage: python3 main.py <INPUT_FILE> <SOL_TYPE>")
         exit()
+
+    solution_type = "best"
+    if len(sys.argv) == 3:
+        if sys.argv[2] == "all": solution_type = "all"
+
 
 
     # get input file config
@@ -138,8 +141,11 @@ def main():
     # get combinations of input file
     listed_animals = [init_animals[animal].name for animal in init_animals]
     animals_combinations = list()
-    for i in range(1, len(listed_animals)+1):
-       animals_combinations.append(list(itertools.combinations(listed_animals, i)))
+    if solution_type == "best":
+        for i in range(1, len(listed_animals)+1):
+            animals_combinations.append(list(itertools.combinations(listed_animals, i)))
+    else:
+        animals_combinations.append(list(itertools.combinations(listed_animals, len(listed_animals))))
 
     # iterate over combinations
     best_score = 0

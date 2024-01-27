@@ -1,0 +1,9 @@
+! nau_size 6
+
+! animals
+CAT Cat
+SPARROW1 Sparrow
+SPARROW2 Sparrow
+LION Lion
+HORSE Horse
+HORSE1 Horse

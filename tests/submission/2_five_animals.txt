@@ -1,0 +1,8 @@
+! nau_size 6
+
+! animals
+CAT Cat
+ELEPHANT Elephant
+HORSE Horse
+SPARROW Sparrow
+FOX Fox

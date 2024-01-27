@@ -1,0 +1,11 @@
+! nau_size 12
+
+! animals
+CAT Cat
+CAT2 Cat
+ELEPHANT Elephant
+HORSE Horse
+SPARROW Sparrow
+FOX Fox
+LION Lion
+DODO Dodo

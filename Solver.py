@@ -8,6 +8,9 @@ def solve(animals, NAU_SIZE):
     for animal in animals:
         s.add(animals[animal].position > 0, animals[animal].position <= NAU_SIZE)
 
+    # one position cannot be taken by different animals
+    s.add(z3.Distinct([animals[animal].position for animal in animals]))
+    
     # compartments are defined through to the position. position 1,2,3 are compartment 1. 
     # position 4,5,6 are compartment 2....
     for animal in animals:
@@ -27,8 +30,7 @@ def solve(animals, NAU_SIZE):
     nau_tilt = sum([animals[animal].tilt for animal in animals])
     s.add(nau_tilt < 3, nau_tilt > -3)
 
-    # one position cannot be taken by different animals
-    s.add(z3.Distinct([animals[animal].position for animal in animals]))
+
 
 
     # 2. Carnivores or omnivores can only be with other herbivores if the herbivore is larger (has more weight) than the 
@@ -54,7 +56,6 @@ def solve(animals, NAU_SIZE):
 
     # 4. Shy animals cannot be in compartments with omnivores or carnivores, nor can they be in a 
     # neighbouring compartment with omnivores or carnivores.
-    #TODO: neighbouring
     for shy_animal in animals:
         if animals[shy_animal].property != Const.SHY: continue
         for carnivor_or_omnivore in animals:

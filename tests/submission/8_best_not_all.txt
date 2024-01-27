@@ -1,0 +1,8 @@
+! nau_size 12
+
+! animals
+CAT1 Cat
+CAT2 Cat
+CAT3 Cat
+DODO Dodo
+ELEPHANT Elephant
