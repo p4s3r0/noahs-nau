@@ -1,0 +1,10 @@
+! nau_size 6
+
+! animals
+SPARROW Sparrow
+ELEPHANT Elephant
+
+! supplies
+MEAT
+HERBS
+WATER
