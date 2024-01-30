@@ -5,19 +5,18 @@ import Parser
 import Const
 import Solver
 import itertools
+import Logger
 
 def print_model(m, curr_animals, NAU_SIZE, score):
-    print("\n\nRESULT FOR BEST CONFIGURATION\n")
-    print(f"Tilt : {sum(int(str(m[curr_animals[animal].tilt])) for animal in curr_animals)}")
-    print(f"Score: {score}")
+    Logger.sol("Result for Best Configuration")
+    Logger.sol(f"Tilt : {sum(int(str(m[curr_animals[animal].tilt])) for animal in curr_animals)}")
+    Logger.sol(f"Score: {score}")
 
-    print("\nModel in text format:")
-    print("#"*40)
-    print('[]')
+    Logger.sol("Model in text format:")
     for animal in curr_animals:
         print(f"[{str(m[curr_animals[animal].compartment]):>2}|{str(m[curr_animals[animal].position]):>2}] {curr_animals[animal].name:<10} | weight: {curr_animals[animal].weight}")
-    print("#"*40 + "\n")
-    print("Model in Visual ASCII format:")
+    
+    Logger.sol("Model in Visual ASCII format:")
 
     arch = dict()
 
@@ -50,10 +49,9 @@ def print_model(m, curr_animals, NAU_SIZE, score):
 
     print('|' + '_'*(ARCH_LENGTH//2) + '|' + '_'*(ARCH_LENGTH//2) + '|')
     print(" **                               **")
-    print("   **********           **********  ")
+    print("   **********   NOAH    **********  ")
     print("             ***********            ")
     print("                  *                 ")
-    print("#"*40)
 
 
 
@@ -160,10 +158,14 @@ def main():
                 curr_animals[animal_name] = init_animals[animal_name]
             # calculate score
             score = calcScore(combination=curr_animals, init_animals=init_animals)
+            if score <= best_score:
+                Logger.dev(f"[{comb_i:>3}] Score: {score:>2}  |  {'SKIP':^6}  |  Combination: {curr_comb}")
+                continue
+
             # check if current comb is satisfiable
             m = Solver.solve(animals=curr_animals, NAU_SIZE=NAU_SIZE)
 
-            print(f"[{comb_i:>3}] Score: {score:>2}  |  {'UNSAT' if m == 'UNSAT' else 'SAT':^6}  |  Combination: {curr_comb}")
+            Logger.dev(f"[{comb_i:>3}] Score: {score:>2}  |  {'UNSAT' if m == 'UNSAT' else 'SAT':^6}  |  Combination: {curr_comb}")
 
             if m == "UNSAT": 
                 continue
